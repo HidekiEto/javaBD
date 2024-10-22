@@ -39,8 +39,8 @@ public class Main extends JFrame {
 
         private void cadastrar(ActionEvent e){
         if (e.getSource() == btn1){
-            Cadastro cadastro = new Cadastro();
-            cadastro.setVisible(true);
+          //  Cadastro cadastro = new Cadastro();
+           // cadastro.setVisible(true);
             
         }
     }

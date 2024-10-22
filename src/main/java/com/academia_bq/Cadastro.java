@@ -53,12 +53,10 @@ public class Cadastro extends JFrame {
             janela.add(panel1);
             janela.add(panel4);
 
-            janela.setSize(300,300);
-            janela.setDefaultCloseOperation(EXIT_ON_CLOSE);
+   
+            setSize(300,200);
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        
-    }
-    public static void main(String[]args){
         
     }
 }
