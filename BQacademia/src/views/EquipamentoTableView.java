@@ -16,8 +16,9 @@ public class EquipamentoTableView extends JFrame{
     initializeComponents();
    }
    private void initializeComponents(){
-            String[] columnNames = {"ID", "Nome", "Descrição", "Qtd_disp", "Status"};
+            String[] columnNames = {"ID", "Nome", "Descrição", "Qtd_disp", "Ativo"};
             tableModel = new DefaultTableModel(columnNames, 0);
+            table = new JTable(tableModel);
             JScrollPane scrollPane = new JScrollPane(table);
 
             scrollPane.setBorder(

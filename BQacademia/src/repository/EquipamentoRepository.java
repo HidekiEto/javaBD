@@ -10,7 +10,7 @@ import java.util.List;
 public class EquipamentoRepository{
     
     public void adicionarEquipamento(Equipamento equipamento) {
-        String sql = "INSERT INTO equipamentos (nome, descricao, quantidade_disponivel, status) VALUES (? ? ? ?)";
+        String sql = "INSERT INTO equipamentos (nome, descricao, qtd_disponivel, ativo) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DbConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -41,10 +41,10 @@ public class EquipamentoRepository{
 
             while (rs.next()) {
                 Equipamento equipamento = new Equipamento(
-                    rs.getInt("idEquipamento"),
+                    rs.getInt("id_equipamento"),
                     rs.getString("nome"),
                     rs.getString("descricao"),
-                    rs.getInt("quantidadeDisponivel"),
+                    rs.getInt("qtd_disponivel"),
                     rs.getBoolean("ativo")
                 );
                 equipamentos.add(equipamento);
@@ -69,10 +69,10 @@ public class EquipamentoRepository{
 
             if (rs.next()) {
                 equipamento = new Equipamento(
-                    rs.getInt("idEquipamento"),
+                    rs.getInt("id_equipamento"),
                     rs.getString("nome"),
                     rs.getString("descricao"),
-                    rs.getInt("quantidadeDisponivel"),
+                    rs.getInt("qtd_disponivel"),
                     rs.getBoolean("ativo")
                 );
             }
@@ -85,7 +85,7 @@ public class EquipamentoRepository{
 
     public void atualizarEquipamento(Equipamento equipamento) {
         String sql = 
-            "UPDATE equipamentos SET nome = ?, descricao = ?, qtd_disponivel = ?, status = ? WHERE id_equipamento = ?";
+            "UPDATE equipamentos SET nome = ?, descricao = ?, qtd_disponivel = ?, ativo = ? WHERE id_equipamento = ?";
         
         try (Connection conn = DbConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -108,7 +108,7 @@ public class EquipamentoRepository{
         }
     }
     public void deletarEquipamento(int idEquipamento) {
-        String sql = "DELETE FROM equipamentos WHERE id = ?";
+        String sql = "DELETE FROM equipamentos WHERE id_equipamento = ?";
 
         try (Connection conn = DbConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {

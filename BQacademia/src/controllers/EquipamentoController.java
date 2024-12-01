@@ -90,7 +90,7 @@ public class EquipamentoController {
                         equipamentoAtualizado.getQuantidadeDisponivel(),
                         equipamentoAtualizado.isAtivo()
                     );
-                    repository.adicionarEquipamento(equipamentoAtualizado);
+                    repository.atualizarEquipamento(equipamentoAtualizado);
                     atualizarTabela();
                 }
             } else {
