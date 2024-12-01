@@ -84,11 +84,11 @@ public class EquipamentoController {
                 Equipamento equipamentoAtualizado = form.getEquipamento();
                 if (equipamentoAtualizado != null) {
                     equipamentoAtualizado = new Equipamento(
-                        selectedId;
-                        equipamentoAtualizado.getNome();
-                        equipamentoAtualizado.getDescricao();
-                        equipamentoAtualizado.getQuantidadeDisponivel();
-                        equipamentoAtualizado.isAtivo();
+                        selectedId,
+                        equipamentoAtualizado.getNome(),
+                        equipamentoAtualizado.getDescricao(),
+                        equipamentoAtualizado.getQuantidadeDisponivel(),
+                        equipamentoAtualizado.isAtivo()
                     );
                     repository.adicionarEquipamento(equipamentoAtualizado);
                     atualizarTabela();
