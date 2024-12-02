@@ -64,6 +64,16 @@ public class EquipamentoForm extends JDialog {
         cancelarButton.setBackground(Color.RED);
         cancelarButton.setForeground(Color.WHITE);
 
+        salvarButton.setForeground(Color.darkGray); // cor do texto
+        salvarButton.setFocusPainted(false); // remove o efeito de foco
+        salvarButton.setContentAreaFilled(false); // remove o preenchimento de fundo
+        salvarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        cancelarButton.setForeground(Color.darkGray); // cor do texto
+        cancelarButton.setFocusPainted(false); // remove o efeito de foco
+        cancelarButton.setContentAreaFilled(false); // remove o preenchimento de fundo
+        cancelarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         panel.add(salvarButton);
         panel.add(cancelarButton);
 

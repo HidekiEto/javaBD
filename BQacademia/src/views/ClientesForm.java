@@ -56,7 +56,7 @@ public class ClientesForm extends JDialog {
         JPanel titlePanel = new JPanel(new FlowLayout());
         titlePanel.add(new JLabel("Registro de Cliente"));
 
-        JPanel panel = new JPanel(new GridLayout(8, 2, 10, 10));
+        JPanel panel = new JPanel(new GridLayout(9, 2, 10, 10));
         panel.add(new JLabel("Nome: "));
         panel.add(nomeField);
         panel.add(new JLabel("CPF: "));
@@ -81,6 +81,16 @@ public class ClientesForm extends JDialog {
         salvarButton.setForeground(Color.WHITE);
         cancelarButton.setBackground(new Color(255, 0, 0));
         cancelarButton.setForeground(Color.WHITE);
+
+        salvarButton.setForeground(Color.darkGray); // cor do texto
+        salvarButton.setFocusPainted(false); // remove o efeito de foco
+        salvarButton.setContentAreaFilled(false); // remove o preenchimento de fundo
+        salvarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        cancelarButton.setForeground(Color.darkGray); // cor do texto
+        cancelarButton.setFocusPainted(false); // remove o efeito de foco
+        cancelarButton.setContentAreaFilled(false); // remove o preenchimento de fundo
+        cancelarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         panel.add(salvarButton);
         panel.add(cancelarButton);
@@ -149,7 +159,7 @@ public class ClientesForm extends JDialog {
                 telefoneField.getText().trim(),
                 emailField.getText().trim(),
                 enderecoField.getText().trim(),
-                LocalDate.now(), // Define data atual para data de cadastro
+                LocalDate.now(), // define data atual para data de cadastro
                 ativo.isSelected()
         );
     }

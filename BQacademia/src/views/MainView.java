@@ -37,10 +37,10 @@ public class MainView extends JFrame {
         // criação e redimensionamento do ícone
         ImageIcon icon = new ImageIcon("assets/dumbell.png"); // criação do ícone original
         Image image = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-        ImageIcon resizedIcon = new ImageIcon(image);
+        ImageIcon tamanhoIcon = new ImageIcon(image);
 
         // define o ícone redimensionado no botão
-        equipamentoButton.setIcon(resizedIcon);
+        equipamentoButton.setIcon(tamanhoIcon);
 
         // ajusta a posição do texto para a esquerda do ícone
         equipamentoButton.setHorizontalTextPosition(SwingConstants.LEFT);
@@ -53,10 +53,10 @@ public class MainView extends JFrame {
         // criação e redimensionamento do ícone
         ImageIcon iconCliente = new ImageIcon("assets/cliente.png"); 
         Image imagemCliente = iconCliente.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-        ImageIcon resizedIconCliente = new ImageIcon(imagemCliente);
+        ImageIcon tamanhoIconeCliente = new ImageIcon(imagemCliente);
 
         // define o ícone redimensionado no botão
-        clienteButton.setIcon(resizedIconCliente);
+        clienteButton.setIcon(tamanhoIconeCliente);
 
         // ajusta a posição do texto para a esquerda do ícone
         clienteButton.setHorizontalTextPosition(SwingConstants.LEFT);
