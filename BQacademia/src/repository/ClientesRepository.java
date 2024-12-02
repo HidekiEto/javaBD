@@ -91,7 +91,7 @@ public class ClientesRepository {
         return cliente;
     }
 
-    public void atualizarClientes(Clientes cliente) {
+    public void atualizarCliente(Clientes cliente) {
         String sql = "UPDATE clientes SET nome =?, telefone =?, email =?, endereco =?, ativo=?  WHERE id_cliente = ?";
 
         try (Connection conn = DbConnection.getConnection();
@@ -113,7 +113,7 @@ public class ClientesRepository {
         }
     }
 
-    public void removerCliente(int idCliente) {
+    public void deletarCliente(int idCliente) {
         String sql = "DELETE FROM clientes WHERE id_cliente =?";
 
         try (Connection conn = DbConnection.getConnection();

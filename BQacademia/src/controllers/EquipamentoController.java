@@ -6,7 +6,6 @@ import views.EquipamentoTableView;
 import views.EquipamentoForm;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -25,14 +24,37 @@ public class EquipamentoController {
         atualizarTabela();
 
         JToolBar toolBar = new JToolBar();
+        toolBar.setLayout(new BoxLayout(toolBar, BoxLayout.X_AXIS)); // configura layout horizontal
+
+        JButton voltarButton = new JButton("Voltar");
         JButton adicionarButton = new JButton("Adicionar");
         JButton editarButton = new JButton("Editar");
         JButton deletarButton = new JButton("Deletar");
+
+        toolBar.add(voltarButton);
+
+        // adiciona um espaço fixo pequeno entre os botões "Voltar" e "Adicionar"
+        toolBar.add(Box.createHorizontalStrut(140)); 
+
         toolBar.add(adicionarButton);
+        toolBar.add(Box.createHorizontalStrut(10)); 
         toolBar.add(editarButton);
+        toolBar.add(Box.createHorizontalStrut(10)); 
         toolBar.add(deletarButton);
 
-        tableView.add(toolBar, BorderLayout.NORTH);
+        // centralização final se necessário
+        toolBar.add(Box.createHorizontalGlue());
+
+        tableView.add(toolBar, java.awt.BorderLayout.NORTH);
+
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((JFrame) SwingUtilities.getWindowAncestor(voltarButton)).dispose();
+                MainController controller = new MainController();
+                controller.iniciar();
+            }
+        });
 
         adicionarButton.addActionListener(new ActionListener() {
             @Override
@@ -71,38 +93,37 @@ public class EquipamentoController {
         }
     }
 
-    private void editarEquipamento(){
+    private void editarEquipamento() {
         int selectedId = tableView.getSelectedEquipamentoId();
         if (selectedId != -1) {
             Equipamento equipamento = repository.obterEquipamentoPorId(selectedId);
             if (equipamento != null) {
-                EquipamentoForm form = new EquipamentoForm(tableView, 
-                "Editar Equipamento", equipamento); 
-            form.setVisible(true);
-            Equipamento equipamentoAtualizado = form.getEquipamento();
-            if (equipamentoAtualizado != null) {
-                equipamentoAtualizado = new Equipamento(
-                    selectedId,
-                    equipamentoAtualizado.getNome(),
-                    equipamentoAtualizado.getDescricao(),
-                    equipamentoAtualizado.getQuantidadeDisponivel(),
-                    equipamentoAtualizado.isAtivo()
-                );
-                repository.atualizarEquipamento(equipamentoAtualizado);
-                atualizarTabela();
+                EquipamentoForm form = new EquipamentoForm(tableView,
+                        "Editar Equipamento", equipamento);
+                form.setVisible(true);
+                Equipamento equipamentoAtualizado = form.getEquipamento();
+                if (equipamentoAtualizado != null) {
+                    equipamentoAtualizado = new Equipamento(
+                            selectedId,
+                            equipamentoAtualizado.getNome(),
+                            equipamentoAtualizado.getDescricao(),
+                            equipamentoAtualizado.getQuantidadeDisponivel(),
+                            equipamentoAtualizado.isAtivo());
+                    repository.atualizarEquipamento(equipamentoAtualizado);
+                    atualizarTabela();
+                }
+            } else {
+                JOptionPane.showMessageDialog(tableView,
+                        "Equipamento não encontrado.",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(tableView, 
-            "Equipamento não encontrado.",
-            "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(tableView,
+                    "Selecione um equipamento para editar",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
         }
-    } else {
-        JOptionPane.showMessageDialog(tableView, 
-            "Selecione um equipamento para editar",
-            "Aviso", JOptionPane.WARNING_MESSAGE);
     }
-}
-            
+
     private void deletarEquipamento() {
         int selectedId = tableView.getSelectedEquipamentoId();
         if (selectedId != -1) {

@@ -34,7 +34,10 @@ public class Clientes {
         this.ativo = ativo;
     }
 
-    // Getters and Setters...
+  
+    public int getIdCliente(){
+        return idCliente;
+    }
     public String getNome(){
         return nome;
     }

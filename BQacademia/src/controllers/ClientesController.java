@@ -15,8 +15,8 @@ public class ClientesController {
     private ClientesRepository repository;
     private ClientesTableView tableView;
 
-    public ClientesController(ClientesRepository repository){
-        this.repository = repository;
+    public ClientesController(){
+        repository = new ClientesRepository();
         tableView = new ClientesTableView();
         inicializar();
     }
@@ -24,29 +24,40 @@ public class ClientesController {
         atualizarTabela();
 
         JToolBar toolBar = new JToolBar();
-        toolBar.setLayout(new BoxLayout(toolBar, BoxLayout.X_AXIS)); // Configura layout horizontal
-        
-        JButton adicionarButton = new JButton("Adicionar");
-        JButton editarButton = new JButton("Editar");
-        JButton deletarButton = new JButton("Deletar");
-        
-        // adiciona um espaço flexível antes dos botões (ajuda na centralização)
-        toolBar.add(Box.createHorizontalGlue());
-        
-        // adiciona os botões com espaços fixos entre eles
-        toolBar.add(adicionarButton);
-        toolBar.add(Box.createHorizontalStrut(10)); // Espaço de 10px
-        toolBar.add(editarButton);
-        toolBar.add(Box.createHorizontalStrut(10)); // Espaço de 10px
-        toolBar.add(deletarButton);
-        
-        // adiciona um espaço flexível depois dos botões (ajuda na centralização)
-        toolBar.add(Box.createHorizontalGlue());
-        
+toolBar.setLayout(new BoxLayout(toolBar, BoxLayout.X_AXIS)); // configura layout horizontal
 
-        tableView.add(toolBar, java.awt.BorderLayout.NORTH);
+JButton voltarButton = new JButton("Voltar");
+JButton adicionarButton = new JButton("Adicionar");
+JButton editarButton = new JButton("Editar");
+JButton deletarButton = new JButton("Deletar");
+
+toolBar.add(voltarButton);
+
+// adiciona um espaço fixo pequeno entre os botões "Voltar" e "Adicionar"
+toolBar.add(Box.createHorizontalStrut(230)); 
+
+toolBar.add(adicionarButton);
+toolBar.add(Box.createHorizontalStrut(10)); 
+toolBar.add(editarButton);
+toolBar.add(Box.createHorizontalStrut(10)); 
+toolBar.add(deletarButton);
+
+// centralização final se necessário
+toolBar.add(Box.createHorizontalGlue());
+
+tableView.add(toolBar, java.awt.BorderLayout.NORTH);
+
 
         // as ações dos botões declarados acima
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((JFrame) SwingUtilities.getWindowAncestor(voltarButton)).dispose();
+                MainController controller = new MainController();
+                controller.iniciar();
+            }
+        });
+
         adicionarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,7 +89,7 @@ public class ClientesController {
         private void adicionarCliente() {
             ClientesForm form = new ClientesForm(tableView, "Adicionar Cliente");
             form.setVisible(true);
-            Clientes novoCliente = form.getCliente();
+            Clientes novoCliente = form.getClientes();
             if (novoCliente != null) {
                 repository.adicionarCliente(novoCliente);
                 atualizarTabela();
@@ -93,7 +104,7 @@ public class ClientesController {
                     ClientesForm form = new ClientesForm(tableView, 
                     "Editar Cliente", cliente); 
                 form.setVisible(true);
-                Clientes clienteAtualizado = form.getCliente();
+                Clientes clienteAtualizado = form.getClientes();
                 if (clienteAtualizado != null) {
                     clienteAtualizado = new Clientes(
                         selectedId,
@@ -140,4 +151,7 @@ public class ClientesController {
                 JOptionPane.WARNING_MESSAGE);
         }
     }
+    public void iniciar() {
+        tableView.setVisible(true);
+     }
 }

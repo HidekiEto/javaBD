@@ -1,8 +1,7 @@
 package controllers;
 
 import views.MainView;
-import controllers.EquipamentoController; // Importação hipotética para o EquipamentoController
-import javax.swing.*;
+
 
 public class MainController {
     private MainView mainView;
@@ -20,7 +19,8 @@ public class MainController {
         });
 
         mainView.getClienteButton().addActionListener(e -> {
-            JOptionPane.showMessageDialog(mainView, "Funcionalidade de Clientes ainda não implementada.");
+            ClientesController controller = new ClientesController();
+            controller.iniciar();  // Inicia a tela de clientes
         });
     }
 
