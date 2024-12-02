@@ -1,29 +1,30 @@
 package controllers;
 
-import views.Main;
-
+import views.MainView;
+import controllers.EquipamentoController; // Importação hipotética para o EquipamentoController
 import javax.swing.*;
-import java.awt.*;
 
 public class MainController {
-    private JLabel teste;
-    private Main panel;
+    private MainView mainView;
 
-    public MainController(){
-        panel = new Main();
+    public MainController() {
+        mainView = new MainView();
         inicializar();
     }
 
-    public void inicializar(){
-        teste = new JLabel("teste");
-        panel.add(teste);
-        panel.pack();
+    private void inicializar() {
+        // Adiciona os ActionListeners aos botões da MainView
+        mainView.getEquipamentoButton().addActionListener(e -> {
+            EquipamentoController controller = new EquipamentoController();
+            controller.iniciar(); 
+        });
 
-        panel.setVisible(true);
+        mainView.getClienteButton().addActionListener(e -> {
+            JOptionPane.showMessageDialog(mainView, "Funcionalidade de Clientes ainda não implementada.");
+        });
     }
 
-    
-
-    public void iniciar(){     
+    public void iniciar() {
+        mainView.setVisible(true); // Exibe a tela principal
     }
 }

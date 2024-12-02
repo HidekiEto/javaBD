@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class EquipamentoForm extends JDialog {
-    private JTextField nomeField, descricaoField, qdtDisponivelField;
+    private JTextField nomeField, descricaoField, qtdDisponivelField;
     private JRadioButton ativo, desativo;
     private JButton salvarButton, cancelarButton;
 
@@ -32,7 +32,7 @@ public class EquipamentoForm extends JDialog {
     private void initializeComponents() {
         nomeField = new JTextField();
         descricaoField = new JTextField();
-        qdtDisponivelField = new JTextField();
+        qtdDisponivelField = new JTextField();
         ButtonGroup statusGroup = new ButtonGroup();
         ativo = new JRadioButton("Ativo");
         desativo = new JRadioButton("Inativo");
@@ -52,7 +52,7 @@ public class EquipamentoForm extends JDialog {
         panel.add(new JLabel("Descrição: "));
         panel.add(descricaoField);
         panel.add(new JLabel("Quantidade Disponível: "));
-        panel.add(qdtDisponivelField);
+        panel.add(qtdDisponivelField);
         panel.add(new JLabel("Status:"));
         JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         statusPanel.add(ativo);
@@ -99,7 +99,7 @@ public class EquipamentoForm extends JDialog {
         if (equipamento != null) {
             nomeField.setText(equipamento.getNome());
             descricaoField.setText(equipamento.getDescricao());
-            qdtDisponivelField.setText(String.valueOf(equipamento.getQuantidadeDisponivel()));
+            qtdDisponivelField.setText(String.valueOf(equipamento.getQuantidadeDisponivel()));
             ativo.setSelected(equipamento.isAtivo());
             desativo.setSelected(!equipamento.isAtivo());
         }
@@ -119,7 +119,7 @@ public class EquipamentoForm extends JDialog {
     private void adicionarEquipamento() {
         int quantidadeDisponivel;
         try {
-            quantidadeDisponivel = Integer.parseInt(qdtDisponivelField.getText().trim());
+            quantidadeDisponivel = Integer.parseInt(qtdDisponivelField.getText().trim());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this,
                     "Quantidade Disponível deve ser um número válido.",
@@ -136,7 +136,7 @@ public class EquipamentoForm extends JDialog {
     private void atualizarEquipamento() {
         int quantidadeDisponivel;
         try {
-            quantidadeDisponivel = Integer.parseInt(qdtDisponivelField.getText().trim());
+            quantidadeDisponivel = Integer.parseInt(qtdDisponivelField.getText().trim());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this,
                     "Quantidade Disponível deve ser um número válido.",

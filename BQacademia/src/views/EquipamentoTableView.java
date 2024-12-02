@@ -51,4 +51,7 @@ public class EquipamentoTableView extends JFrame{
         }
         return -1;
     }
+    public void addToolBar(JToolBar toolBar) {
+        this.add(toolBar, BorderLayout.NORTH);
+    }
 }
