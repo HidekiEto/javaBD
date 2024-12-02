@@ -41,8 +41,10 @@ public class EquipamentoForm extends JDialog {
         salvarButton = new JButton("Salvar");
         cancelarButton = new JButton("Cancelar");
 
+        JPanel container = new JPanel(new BorderLayout());
+
         JPanel titlePanel = new JPanel(new FlowLayout()); 
-        titlePanel.add(new JLabel("Teste"));
+        titlePanel.add(new JLabel("Registro de Equipamento"));
 
         JPanel panel = new JPanel(new GridLayout(5, 2, 10, 10));
         panel.add(new JLabel("Nome: "));
@@ -56,11 +58,20 @@ public class EquipamentoForm extends JDialog {
         statusPanel.add(ativo);
         statusPanel.add(desativo);
         panel.add(statusPanel);
+
+        salvarButton.setBackground(Color.GREEN);
+        salvarButton.setBackground(Color.GREEN);
+        cancelarButton.setBackground(Color.RED);
+        cancelarButton.setForeground(Color.WHITE);
+
         panel.add(salvarButton);
         panel.add(cancelarButton);
 
         // margin de 15 pixels
         panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        container.add(titlePanel, BorderLayout.NORTH);
+        container.add(panel);
 
         salvarButton.addActionListener(new ActionListener() {
             @Override
@@ -78,8 +89,8 @@ public class EquipamentoForm extends JDialog {
 
         cancelarButton.addActionListener(e -> dispose());
 
-        this.add(titlePanel);
-        this.add(panel);
+     
+        this.add(container);
         this.pack();
         this.setLocationRelativeTo(getParent());
     }

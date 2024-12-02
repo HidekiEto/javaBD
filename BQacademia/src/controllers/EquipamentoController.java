@@ -24,12 +24,25 @@ public class EquipamentoController {
             atualizarTabela(); // vai atualizar a tabela com os equipamentos existentes
 
             JToolBar toolBar = new JToolBar();
+            toolBar.setLayout(new BoxLayout(toolBar, BoxLayout.X_AXIS)); // Configura layout horizontal
+            
             JButton adicionarButton = new JButton("Adicionar");
             JButton editarButton = new JButton("Editar");
             JButton deletarButton = new JButton("Deletar");
+            
+            // adiciona um espaço flexível antes dos botões (ajuda na centralização)
+            toolBar.add(Box.createHorizontalGlue());
+            
+            // adiciona os botões com espaços fixos entre eles
             toolBar.add(adicionarButton);
+            toolBar.add(Box.createHorizontalStrut(10)); // Espaço de 10px
             toolBar.add(editarButton);
+            toolBar.add(Box.createHorizontalStrut(10)); // Espaço de 10px
             toolBar.add(deletarButton);
+            
+            // adiciona um espaço flexível depois dos botões (ajuda na centralização)
+            toolBar.add(Box.createHorizontalGlue());
+            
 
             tableView.add(toolBar, java.awt.BorderLayout.NORTH);
 
@@ -123,8 +136,5 @@ public class EquipamentoController {
                 JOptionPane.WARNING_MESSAGE);
         }
     }
-        public void iniciar(){
-            
-        }
-
+    
 }

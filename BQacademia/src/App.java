@@ -1,8 +1,8 @@
-import controllers.EquipamentoController;
+import controllers.MainController;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        EquipamentoController controller = new EquipamentoController();
+        MainController controller = new MainController();
         controller.iniciar();
     }
 }
