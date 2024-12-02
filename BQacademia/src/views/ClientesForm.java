@@ -1,5 +1,6 @@
 package views;
 
+// importa as classes necessárias para criar o formulário e manipular dados de clientes
 import models.Clientes;
 
 import javax.swing.*;
@@ -9,30 +10,35 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class ClientesForm extends JDialog {
+    // define os campos de entrada e botões do formulário
     private JTextField nomeField, cpfField, telefoneField, emailField, enderecoField, dataNascField, dataCadastroField;
     private JRadioButton ativo, desativo;
     private JButton salvarButton, cancelarButton;
 
-    private Clientes cliente;
-    private boolean isEditMode;
+    private Clientes cliente; // armazena o cliente que está sendo editado ou criado
+    private boolean isEditMode; // indica se o formulário está no modo de edição
 
+    // formata as datas no padrão dd/MM/yyyy
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+    // construtor para criar o formulário no modo de criação
     public ClientesForm(Frame parent, String title) {
-        super(parent, title, true);
-        this.isEditMode = false;
-        initializeComponents();
+        super(parent, title, true); // configura o formulário como modal
+        this.isEditMode = false; // define o modo de criação
+        initializeComponents(); // inicializa os componentes da interface
     }
 
+    // construtor para criar o formulário no modo de edição
     public ClientesForm(Frame parent, String title, Clientes cliente) {
         super(parent, title, true);
-        this.cliente = cliente;
-        this.isEditMode = true;
-        initializeComponents();
-        preencherCampos();
+        this.cliente = cliente; // atribui o cliente que será editado
+        this.isEditMode = true; // define o modo de edição
+        initializeComponents(); // inicializa os componentes da interface
+        preencherCampos(); // preenche os campos com os dados do cliente
     }
 
     private void initializeComponents() {
+        // inicializa os campos de texto e define comportamentos
         nomeField = new JTextField();
         cpfField = new JTextField();
         dataNascField = new JTextField();
@@ -40,19 +46,21 @@ public class ClientesForm extends JDialog {
         emailField = new JTextField();
         enderecoField = new JTextField();
         dataCadastroField = new JTextField();
-        dataCadastroField.setEditable(false); // Data de cadastro não editável
+        dataCadastroField.setEditable(false); // impede a edição da data de cadastro
 
+        // cria os botões de status (ativo e inativo)
         ButtonGroup statusGroup = new ButtonGroup();
         ativo = new JRadioButton("Ativo");
         desativo = new JRadioButton("Inativo");
         statusGroup.add(ativo);
         statusGroup.add(desativo);
 
+        // inicializa os botões de ação
         salvarButton = new JButton("Salvar");
         cancelarButton = new JButton("Cancelar");
 
+        // define o layout e organiza os componentes
         JPanel container = new JPanel(new BorderLayout());
-
         JPanel titlePanel = new JPanel(new FlowLayout());
         titlePanel.add(new JLabel("Registro de Cliente"));
 
@@ -77,48 +85,38 @@ public class ClientesForm extends JDialog {
         statusPanel.add(desativo);
         panel.add(statusPanel);
 
-        salvarButton.setBackground(new Color(0, 128, 0));
-        salvarButton.setForeground(Color.WHITE);
-        cancelarButton.setBackground(new Color(255, 0, 0));
-        cancelarButton.setForeground(Color.WHITE);
-
-        salvarButton.setForeground(Color.darkGray); // cor do texto
-        salvarButton.setFocusPainted(false); // remove o efeito de foco
-        salvarButton.setContentAreaFilled(false); // remove o preenchimento de fundo
+        // configurações visuais dos botões
         salvarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        cancelarButton.setForeground(Color.darkGray); // cor do texto
-        cancelarButton.setFocusPainted(false); // remove o efeito de foco
-        cancelarButton.setContentAreaFilled(false); // remove o preenchimento de fundo
         cancelarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         panel.add(salvarButton);
         panel.add(cancelarButton);
-
         panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
         container.add(titlePanel, BorderLayout.NORTH);
         container.add(panel);
 
+        // adiciona os listeners para os botões
         salvarButton.addActionListener(e -> {
-            if (validarCampos()) {
+            if (validarCampos()) { // valida os campos antes de salvar
                 if (isEditMode) {
-                    atualizarCliente();
+                    atualizarCliente(); // atualiza o cliente existente
                 } else {
-                    adicionarCliente();
+                    adicionarCliente(); // adiciona um novo cliente
                 }
-                dispose();
+                dispose(); // fecha o formulário
             }
         });
 
-        cancelarButton.addActionListener(e -> dispose());
+        cancelarButton.addActionListener(e -> dispose()); // fecha o formulário sem salvar
 
-        this.add(container);
-        this.pack();
-        this.setLocationRelativeTo(getParent());
+        this.add(container); // adiciona o container ao formulário
+        this.pack(); // ajusta o tamanho do formulário
+        this.setLocationRelativeTo(getParent()); // centraliza o formulário na tela
     }
 
     private void preencherCampos() {
+        // preenche os campos com os dados do cliente no modo de edição
         if (cliente != null) {
             nomeField.setText(cliente.getNome());
             cpfField.setText(cliente.getCpf());
@@ -133,25 +131,21 @@ public class ClientesForm extends JDialog {
     }
 
     private boolean validarCampos() {
+        // valida os campos obrigatórios e o formato das datas
         try {
             if (nomeField.getText().trim().isEmpty() || cpfField.getText().trim().isEmpty()) {
-                throw new IllegalArgumentException("Nome e CPF são obrigatórios.");
+                throw new IllegalArgumentException("Nome e CPF são obrigatórios");
             }
-
-            // Verifica o formato das datas
-            LocalDate.parse(dataNascField.getText().trim(), dateFormatter);
-
+            LocalDate.parse(dataNascField.getText().trim(), dateFormatter); // verifica o formato da data
         } catch (IllegalArgumentException | DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this,
-                    "Erro: " + e.getMessage(),
-                    "Validação de Campos",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Validação de Campos", JOptionPane.ERROR_MESSAGE);
+            return false; // retorna falso se houver erro
         }
-        return true;
+        return true; // retorna verdadeiro se todos os campos forem válidos
     }
 
     private void adicionarCliente() {
+        // cria um novo cliente com os dados do formulário
         cliente = new Clientes(
                 nomeField.getText().trim(),
                 cpfField.getText().trim(),
@@ -159,12 +153,13 @@ public class ClientesForm extends JDialog {
                 telefoneField.getText().trim(),
                 emailField.getText().trim(),
                 enderecoField.getText().trim(),
-                LocalDate.now(), // define data atual para data de cadastro
+                LocalDate.now(), // define a data atual como data de cadastro
                 ativo.isSelected()
         );
     }
 
     private void atualizarCliente() {
+        // atualiza os dados do cliente existente
         if (cliente != null) {
             cliente.setNome(nomeField.getText().trim());
             cliente.setCpf(cpfField.getText().trim());
@@ -177,6 +172,7 @@ public class ClientesForm extends JDialog {
     }
 
     public Clientes getClientes() {
+        // retorna o cliente criado ou atualizado
         return cliente;
     }
 }
