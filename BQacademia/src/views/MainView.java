@@ -18,7 +18,7 @@ public class MainView extends JFrame { // define a classe principal que herda de
         this.setLocationRelativeTo(null); // centraliza a janela na tela
         this.setLayout(new BorderLayout()); // define o layout da janela como BorderLayout
 
-        JLabel titleLabel = new JLabel("BQacademia", SwingConstants.CENTER); // cria um rótulo centralizado
+        JLabel titleLabel = new JLabel("BQacademia", SwingConstants.CENTER); // deixa centralizado
         titleLabel.add(Box.createVerticalStrut(10)); // adiciona espaçamento vertical
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18)); // define a fonte do rótulo
         this.add(titleLabel, BorderLayout.NORTH); // adiciona o rótulo na parte superior da janela
@@ -65,7 +65,7 @@ public class MainView extends JFrame { // define a classe principal que herda de
 
         this.add(tables, BorderLayout.CENTER); // adiciona o painel ao centro da janela
 
-        // rodapé
+        // footer
         JLabel footerLabel = new JLabel("© 2024 Gerenciamento de Sistemas", SwingConstants.CENTER); // cria um rótulo de rodapé
         footerLabel.setFont(new Font("Arial", Font.PLAIN, 12)); // define a fonte do rodapé
         this.add(footerLabel, BorderLayout.SOUTH); // adiciona o rodapé na parte inferior da janela
